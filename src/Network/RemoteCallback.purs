@@ -2,6 +2,7 @@ module Network.RemoteCallback (jsonp, externalCall, generateName, Name()) where
 
 import Prelude
 import DOM
+import DOM.Node.Types
 import Control.Monad.Eff
 import Control.Monad.Aff(makeAff,Aff())
 import Data.Foreign
