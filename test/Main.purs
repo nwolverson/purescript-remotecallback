@@ -6,6 +6,9 @@ import Control.Monad.Eff.Console
 import Control.Monad.Eff.Class(liftEff)
 import Control.Monad.Aff(launchAff,forkAff,Aff())
 
+import Data.Foreign
+import Data.Either
+
 import Test.Unit
 import DOM
 import Network.RemoteCallback
@@ -20,7 +23,7 @@ main = do
       timeout 5000 $ assertFn "yielded wrong result" \done ->
         launchAff $ do
           result <- jsonp "PS_Fixed_Callback" "test_jsonp_result.js"
-          liftEff $ done $ result == "Callback argument."
+          liftEff $ done $ readString result == Right "Callback argument."
     test "externalCall" do
       timeout 5000 $ assertFn "yielded wrong result" \done ->
         launchAff $ do
@@ -31,4 +34,4 @@ main = do
             putVar v r
           liftEff $ callWindowFunction name "Result 1"
           result <- takeVar v
-          liftEff $ done $ result == "Result 1"
+          liftEff $ done $ readString result == Right "Result 1"
