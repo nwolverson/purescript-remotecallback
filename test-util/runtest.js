@@ -18,6 +18,7 @@ page.open('test-util/test.html', function(status) {
        window.phantom.exit = function (code) {
          callPhantom(code);
        }
+       window.process = null;
     });
     page.injectJs(testScript);
 });

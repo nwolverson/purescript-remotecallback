@@ -1,8 +1,6 @@
 /* global exports */
 "use strict";
 
-// module Network.RemoteCallback
-
 exports.addScript = function (url) {
   return function () {
     var script = document.createElement("script");

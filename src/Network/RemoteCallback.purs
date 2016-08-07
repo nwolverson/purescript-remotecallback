@@ -1,11 +1,11 @@
 module Network.RemoteCallback (jsonp, externalCall, generateName, Name()) where
 
 import Prelude
-import DOM
-import DOM.Node.Types
-import Control.Monad.Eff
+import DOM (DOM)
+import DOM.Node.Types (Node)
+import Control.Monad.Eff (Eff)
 import Control.Monad.Aff(makeAff,Aff())
-import Data.Foreign
+import Data.Foreign (Foreign)
 
 foreign import addScript :: forall eff. String -> Eff (dom :: DOM | eff) Node
 foreign import removeScript :: forall eff. Node -> Eff (dom :: DOM | eff) Unit
@@ -17,7 +17,6 @@ foreign import data Name :: !
 
 -- | Generate new callback name
 foreign import generateName :: forall eff. String -> Eff (name :: Name | eff) String
-
 
 -- | Call an external JSONP service given callback name and url
 jsonp :: forall eff. String -> String -> Aff (dom :: DOM | eff) Foreign
