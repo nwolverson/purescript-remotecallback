@@ -1,7 +1,11 @@
 /* global exports */
 "use strict";
 
-// module Test.Main
+exports.callPhantom = function (code) {
+  return function () {
+    window.callPhantom(code);
+  };
+};
 
 exports.callWindowFunction = function (name) {
   return function(arg) {

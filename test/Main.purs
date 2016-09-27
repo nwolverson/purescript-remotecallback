@@ -14,14 +14,16 @@ import Network.RemoteCallback (externalCall, generateName, jsonp)
 import Test.Unit (TestSuite, timeout, test)
 import Test.Unit.Assert (assert)
 import Test.Unit.Console (TESTOUTPUT)
-import Test.Unit.Main (exit, runTestWith)
+import Test.Unit.Main (runTestWith)
 
 foreign import callWindowFunction :: forall eff. String -> String -> Eff (dom :: DOM | eff) Unit
 
+foreign import callPhantom :: forall eff. Int -> Eff (console :: CONSOLE | eff) Unit
+
 runTest :: forall e. TestSuite (console :: CONSOLE, testOutput :: TESTOUTPUT, avar :: AVAR | e) -> Eff (console :: CONSOLE, testOutput :: TESTOUTPUT, avar :: AVAR | e) Unit
 runTest suite = void $ runAff errorHandler successHandler $ runTestWith Simple.runTest suite
-  where errorHandler _ = exit 1
-        successHandler _ = exit 0
+  where errorHandler _ = callPhantom 1
+        successHandler _ = callPhantom 0
 
 main :: Eff _ Unit
 main = do
