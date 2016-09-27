@@ -1,19 +1,27 @@
 module Test.Main where
 
 import Prelude
-import Control.Monad.Aff (forkAff)
-import Control.Monad.Aff.AVar (takeVar, putVar, makeVar)
+import Test.Unit.Output.Simple as Simple
+import Control.Monad.Aff (forkAff, runAff)
+import Control.Monad.Aff.AVar (AVAR, takeVar, putVar, makeVar)
 import Control.Monad.Eff (Eff)
 import Control.Monad.Eff.Class (liftEff)
+import Control.Monad.Eff.Console (CONSOLE)
 import DOM (DOM)
 import Data.Either (Either(..))
 import Data.Foreign (readString)
 import Network.RemoteCallback (externalCall, generateName, jsonp)
-import Test.Unit (timeout, test)
+import Test.Unit (TestSuite, timeout, test)
 import Test.Unit.Assert (assert)
-import Test.Unit.Main (runTest)
+import Test.Unit.Console (TESTOUTPUT)
+import Test.Unit.Main (exit, runTestWith)
 
 foreign import callWindowFunction :: forall eff. String -> String -> Eff (dom :: DOM | eff) Unit
+
+runTest :: forall e. TestSuite (console :: CONSOLE, testOutput :: TESTOUTPUT, avar :: AVAR | e) -> Eff (console :: CONSOLE, testOutput :: TESTOUTPUT, avar :: AVAR | e) Unit
+runTest suite = void $ runAff errorHandler successHandler $ runTestWith Simple.runTest suite
+  where errorHandler _ = exit 1
+        successHandler _ = exit 0
 
 main :: Eff _ Unit
 main = do
