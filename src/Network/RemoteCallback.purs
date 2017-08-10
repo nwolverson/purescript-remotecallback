@@ -3,7 +3,7 @@ module Network.RemoteCallback (jsonp, externalCall, generateName, Name()) where
 import Prelude
 import DOM (DOM)
 import DOM.Node.Types (Node)
-import Control.Monad.Eff (Eff)
+import Control.Monad.Eff (Eff, kind Effect)
 import Control.Monad.Aff(makeAff,Aff())
 import Data.Foreign (Foreign)
 
@@ -13,7 +13,7 @@ foreign import removeScript :: forall eff. Node -> Eff (dom :: DOM | eff) Unit
 -- | Register a raw self-unregistering external (global) call handler.
 foreign import addExternalCallHandler :: forall eff. String -> (Foreign -> Eff eff Unit) -> Eff eff Unit
 
-foreign import data Name :: !
+foreign import data Name :: Effect
 
 -- | Generate new callback name
 foreign import generateName :: forall eff. String -> Eff (name :: Name | eff) String

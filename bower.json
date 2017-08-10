@@ -15,16 +15,13 @@
     "output"
   ],
   "dependencies": {
-    "purescript-prelude": "~1.1.0",
-    "purescript-eff": "~1.0.0",
-    "purescript-dom": "~2.0.1",
-    "purescript-aff": "~1.1.0",
-    "purescript-foreign": "~1.1.0"
-  },
-  "resolutions": {
-    "purescript-dom": "~2.0.1"
+    "purescript-prelude": "~3.1.0",
+    "purescript-eff": "~3.1.0",
+    "purescript-dom": "~4.8.0",
+    "purescript-aff": "~3.1.0",
+    "purescript-foreign": "~4.0.1"
   },
   "devDependencies": {
-    "purescript-test-unit": "^9.1.0"
+    "purescript-test-unit": "^12.0.0"
   }
 }
