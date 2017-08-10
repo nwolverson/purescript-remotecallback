@@ -1,0 +1,8 @@
+{
+    "name": "purescript-remotecallback",
+    "private": true,
+    "scripts": {
+        "build": "pulp build",
+        "test": "pulp test -r test-util/runtest.sh"
+    }
+}
